@@ -3,6 +3,7 @@ package com.privalia.dao;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import com.privalia.common.Alumno;
 import com.privalia.util.FileManager;
@@ -20,24 +21,32 @@ public class AlumnoDAO implements IDao<Alumno> {
 		}
 	}
 
-	public Alumno add(Alumno model){
+	public Alumno add(Alumno model) throws IOException{
 		
-		BufferedWriter bw;
+		BufferedWriter bw = null;
 		try {
 
 			bw = new BufferedWriter(new FileWriter(archivo,true));
             bw.append(model.toString());
             bw.newLine();
 
-			bw.close();
-
-		} catch (Exception ex) {
+		} catch (IOException ex) {
+			
 			System.out.println("Mensaje de la excepción: " + ex.getMessage());
+			throw ex;
+			
+		} finally {
+			
+			if(bw != null) {
+				bw.close();
+			}
 		}
 		
 		
 		return model;
 	}
+	
+	
 	
 	/*public void Write(Alumno model, FileManager archivo)
     {
