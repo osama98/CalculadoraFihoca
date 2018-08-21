@@ -14,7 +14,7 @@ public class AlumnoDAOTest {
 	@Test
 	public void testAdd() throws UnsupportedOperationException, IOException{
 		
-		Alumno alumno = new Alumno(1,"Osama","Khollala","47958635J");
+		Alumno alumno = new Alumno(3,"Pepe","awsdsd","5466454J");
 		
 		AlumnoDAO dao = new AlumnoDAO();
 		

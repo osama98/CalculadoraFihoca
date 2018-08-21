@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 import com.privalia.common.Alumno;
 import com.privalia.util.FileManager;
@@ -28,8 +27,9 @@ public class AlumnoDAO implements IDao<Alumno> {
 		
 		BufferedWriter bufferedwritter = null;
 		
+		
 		try {
-
+			
 			bufferedwritter = new BufferedWriter(new FileWriter(archivo,true));
 			bufferedwritter.append(model.toString());
 			bufferedwritter.newLine();
@@ -40,7 +40,6 @@ public class AlumnoDAO implements IDao<Alumno> {
 			throw ex;
 			
 		} finally {
-			
 			if(bufferedwritter != null) {
 				bufferedwritter.close();
 			}
@@ -52,7 +51,6 @@ public class AlumnoDAO implements IDao<Alumno> {
 	private Alumno searchById(int idAlumno) throws IOException {
 		
 		BufferedReader bufferedreader = null;
-		boolean alumnoFound = false;
 		Alumno alumnoFinal = new Alumno();
 		
 		try {
@@ -68,7 +66,7 @@ public class AlumnoDAO implements IDao<Alumno> {
 		       alumno = line.split(",",4);
 		       
 		       if(Integer.parseInt(alumno[0]) == idAlumno) {
-		    	   alumnoFound = true;
+		    	   break;
 		       }
 		    }
 		    
