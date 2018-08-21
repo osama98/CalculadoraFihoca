@@ -1,9 +1,12 @@
 package com.privalia.dao;
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 import com.privalia.common.Alumno;
 import com.privalia.util.FileManager;
@@ -23,12 +26,13 @@ public class AlumnoDAO implements IDao<Alumno> {
 
 	public Alumno add(Alumno model) throws IOException{
 		
-		BufferedWriter bw = null;
+		BufferedWriter bufferedwritter = null;
+		
 		try {
 
-			bw = new BufferedWriter(new FileWriter(archivo,true));
-            bw.append(model.toString());
-            bw.newLine();
+			bufferedwritter = new BufferedWriter(new FileWriter(archivo,true));
+			bufferedwritter.append(model.toString());
+			bufferedwritter.newLine();
 
 		} catch (IOException ex) {
 			
@@ -37,13 +41,55 @@ public class AlumnoDAO implements IDao<Alumno> {
 			
 		} finally {
 			
-			if(bw != null) {
-				bw.close();
+			if(bufferedwritter != null) {
+				bufferedwritter.close();
+			}
+		}
+		
+		return searchById(model.getIdAlumno());
+	}
+	
+	private Alumno searchById(int idAlumno) throws IOException {
+		
+		BufferedReader bufferedreader = null;
+		boolean alumnoFound = false;
+		Alumno alumnoFinal = new Alumno();
+		
+		try {
+			bufferedreader = new BufferedReader(new FileReader(archivo));
+			
+			String line = "";
+			String[] alumno = null;
+			
+		    while ((bufferedreader.readLine()) != null) {
+		    	
+		       line = bufferedreader.readLine();
+		       
+		       alumno = line.split(",",4);
+		       
+		       if(Integer.parseInt(alumno[0]) == idAlumno) {
+		    	   alumnoFound = true;
+		       }
+		    }
+		    
+		    
+		    alumnoFinal = new Alumno(Integer.parseInt(alumno[0]),alumno[1],alumno[2],alumno[3]);
+		    
+		    
+		    
+		} catch(IOException ex) {
+			System.out.println("Mensaje de la excepción: " + ex.getMessage());
+			throw ex;
+		} finally {
+			
+			if(bufferedreader != null) {
+				bufferedreader.close();
 			}
 		}
 		
 		
-		return model;
+		return alumnoFinal;
+		
 	}
 	
 	

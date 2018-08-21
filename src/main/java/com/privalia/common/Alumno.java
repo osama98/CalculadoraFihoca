@@ -8,6 +8,8 @@ public class Alumno {
 	private String dni;
 	
 	
+	public Alumno() {
+	}
 	
 	public Alumno(int idAlumno, String nombre, String apellidos, String dni) {
 		super();
