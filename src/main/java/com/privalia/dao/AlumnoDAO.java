@@ -1,15 +1,39 @@
 package com.privalia.dao;
 
-import java.io.PrintWriter;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 import com.privalia.common.Alumno;
 import com.privalia.util.FileManager;
 
 public class AlumnoDAO implements IDao<Alumno> {
+	
+		public static String archivo = null;
+	
+	static {
+		
+		archivo = "alumnos.txt";
+		
+		if(FileManager.fileExist(archivo) == false) {
+			FileManager.createFile(archivo);
+		}
+	}
 
 	public Alumno add(Alumno model){
 		
-		FileManager archivo = new FileManager();	
+		BufferedWriter bw;
+		try {
+
+			bw = new BufferedWriter(new FileWriter(archivo,true));
+            bw.append(model.toString());
+            bw.newLine();
+
+			bw.close();
+
+		} catch (Exception ex) {
+			System.out.println("Mensaje de la excepción: " + ex.getMessage());
+		}
 		
 		
 		return model;

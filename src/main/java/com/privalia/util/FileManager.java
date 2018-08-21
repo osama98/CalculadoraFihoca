@@ -1,13 +1,10 @@
 package com.privalia.util;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class FileManager {
 	
-	 public static void main(String[] args) throws IOException {
+	  /*public static void main(String[] args) throws IOException {
         String ruta = "alumnos.txt";
         
         File archivo = new File(ruta);
@@ -23,6 +20,18 @@ public class FileManager {
         }
         
         bw.close();
-    }
+    }*/
+	
+	
+	public static File createFile(String archivo) {
+		
+		File fichero = new File(archivo);
+		return fichero;
+	}
+	
+	public static boolean fileExist(String archivo) {
+		
+		return new File(archivo).exists();
+	}
 
 }

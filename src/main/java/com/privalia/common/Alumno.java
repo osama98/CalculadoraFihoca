@@ -82,15 +82,13 @@ public class Alumno {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Alumno [idAlumno=");
 		builder.append(idAlumno);
-		builder.append(", nombre=");
+		builder.append(",");
 		builder.append(nombre);
-		builder.append(", apellidos=");
+		builder.append(",");
 		builder.append(apellidos);
-		builder.append(", dni=");
+		builder.append(",");
 		builder.append(dni);
-		builder.append("]");
 		
 		return builder.toString();
 	}
