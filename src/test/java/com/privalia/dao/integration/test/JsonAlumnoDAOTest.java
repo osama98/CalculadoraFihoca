@@ -7,17 +7,15 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Test;
-
-import com.privalia.common.Alumno;
-import com.privalia.dao.AlumnoDAO;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-@RunWith(value = Parameterized.class)
+import com.privalia.common.Alumno;
+import com.privalia.dao.JsonAlumnoDAO;
 
-public class AlumnoDAOTest {
-	
+
+@RunWith(value = Parameterized.class)
+public class JsonAlumnoDAOTest {
 	private int idAlumno;
 	private String nombre;
 	private String apellidos;
@@ -25,7 +23,7 @@ public class AlumnoDAOTest {
 	
 	
 
-	public AlumnoDAOTest(int idAlumno, String nombre, String apellidos, String dni) {
+	public JsonAlumnoDAOTest(int idAlumno, String nombre, String apellidos, String dni) {
 		super();
 		this.idAlumno = idAlumno;
 		this.nombre = nombre;
@@ -40,7 +38,7 @@ public class AlumnoDAOTest {
                 {2, "asdsad","asdasdsa","asdasdasd"},
                 {8, "sadsadsad","sdsadasd","5213645K"},
                 {4, "dsadsadsada","asdasdsa","2136542L"},
-                {5, "sadsadasd","sadsadasd","564564K"}
+                {25, "sadsadasd","sadsadasd","564564K"}
         });
     }
 
@@ -51,11 +49,10 @@ public class AlumnoDAOTest {
 		
 		Alumno alumno = new Alumno(idAlumno,nombre,apellidos,dni);
 		
-		AlumnoDAO dao = new AlumnoDAO();
+		JsonAlumnoDAO dao = new JsonAlumnoDAO();
 		
 		Alumno alumnoInserted = dao.add(alumno);
 		assertTrue(alumnoInserted.equals(alumno));
-		
 		//crear un alumno de prueba
 			//Alumno alumno = new Alumno();
 			//alumno.setIdAlumno(1);

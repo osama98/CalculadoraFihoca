@@ -1,6 +1,5 @@
 package com.privalia.dao;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -10,18 +9,16 @@ import java.io.IOException;
 import com.privalia.common.Alumno;
 import com.privalia.util.FileManager;
 
-public class AlumnoDAO implements IDao<Alumno> {
+public class TxtAlumnoDAO implements IDao<Alumno> {
 	
-		public static String archivo = null;
+	public static final String PATH = "alumnos.txt";
 	
 	static {
-		
-		archivo = "alumnos.txt";
-		
-		if(FileManager.fileExist(archivo) == false) {
-			FileManager.createFile(archivo);
+		if(FileManager.fileExist(PATH) == false) {
+			FileManager.createFile(PATH);
 		}
 	}
+	
 
 	public Alumno add(Alumno model) throws IOException{
 		
@@ -30,7 +27,7 @@ public class AlumnoDAO implements IDao<Alumno> {
 		
 		try {
 			
-			bufferedwritter = new BufferedWriter(new FileWriter(archivo,true));
+			bufferedwritter = new BufferedWriter(new FileWriter(PATH,true));
 			bufferedwritter.append(model.toString());
 			bufferedwritter.newLine();
 
@@ -54,7 +51,7 @@ public class AlumnoDAO implements IDao<Alumno> {
 		Alumno alumnoFinal = new Alumno();
 		
 		try {
-			bufferedreader = new BufferedReader(new FileReader(archivo));
+			bufferedreader = new BufferedReader(new FileReader(PATH));
 			
 			String line = "";
 			String[] alumno = null;
@@ -89,32 +86,5 @@ public class AlumnoDAO implements IDao<Alumno> {
 		return alumnoFinal;
 		
 	}
-	
-	
-	
-	/*public void Write(Alumno model, FileManager archivo)
-    {
-        PrintWriter pw = null;
-        try
-        {
-            pw = new PrintWriter(archivo);
-
-            for (int i = 0; i < 10; i++)
-                pw.println("Linea " + i);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-           try {
-           // Nuevamente aprovechamos el finally para 
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero)
-              fichero.close();
-           } catch (Exception e2) {
-              e2.printStackTrace();
-           }
-        }
-    }*/
-	
 
 }
