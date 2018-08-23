@@ -11,11 +11,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import com.privalia.common.Alumno;
-import com.privalia.dao.JsonAlumnoDAO;
+import com.privalia.common.DBType;
+import com.privalia.dao.IDao;
+import com.privalia.factory.DAOFactory;
 
 
 @RunWith(value = Parameterized.class)
-public class JsonAlumnoDAOTest {
+
+public class DAOFactoryTest {
 	private int idAlumno;
 	private String nombre;
 	private String apellidos;
@@ -23,7 +26,7 @@ public class JsonAlumnoDAOTest {
 	
 	
 
-	public JsonAlumnoDAOTest(int idAlumno, String nombre, String apellidos, String dni) {
+	public DAOFactoryTest(int idAlumno, String nombre, String apellidos, String dni) {
 		super();
 		this.idAlumno = idAlumno;
 		this.nombre = nombre;
@@ -45,24 +48,26 @@ public class JsonAlumnoDAOTest {
 
 
 	@Test
-	public void testAdd() throws UnsupportedOperationException, IOException{
+	public void TxtAlumnoTest() throws UnsupportedOperationException, IOException{
+		
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(DBType.TXT);
+		IDao<Alumno> iDao = daoFactory.getAlumnoDAO();
 		
 		Alumno alumno = new Alumno(idAlumno,nombre,apellidos,dni);
 		
-		JsonAlumnoDAO dao = new JsonAlumnoDAO();
+		assertTrue(iDao.add(alumno).equals(alumno));
+	}
+	
+	@Test
+	public void JsonAlumnoTest() throws UnsupportedOperationException, IOException{
 		
-		Alumno alumnoInserted = dao.add(alumno);
-		assertTrue(alumnoInserted.equals(alumno));
-		//crear un alumno de prueba
-			//Alumno alumno = new Alumno();
-			//alumno.setIdAlumno(1);
-			//alumno.setName("assada");
+		DAOFactory daoFactory = DAOFactory.getDAOFactory(DBType.JSON);
 		
+		IDao<Alumno> iDao = daoFactory.getAlumnoDAO();
 		
-		//Instanciar AlumnoDao
-		//Llamar al metodo add enviando el alumno de prueba creado
-		//Devlover el alumno escrito en el fichero alumno.txt
-		//Comprobar que los dos alumnos son iguales.Equals.
+		Alumno alumno = new Alumno(idAlumno,nombre,apellidos,dni);
+		
+		assertTrue(iDao.add(alumno).equals(alumno));
 	}
 
 }

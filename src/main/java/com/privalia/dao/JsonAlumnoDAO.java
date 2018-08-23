@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.google.gson.Gson;
 import com.privalia.common.Alumno;
 import com.privalia.util.FileManager;
 
@@ -22,12 +23,13 @@ public class JsonAlumnoDAO implements IDao<Alumno> {
 	public Alumno add(Alumno model) throws IOException{
 		
 		BufferedWriter bufferedwritter = null;
-		
+		Gson gson = new Gson();
+		String json = gson.toJson(model);
 		
 		try {
 			
 			bufferedwritter = new BufferedWriter(new FileWriter(PATH,true));
-			bufferedwritter.append(model.toString());
+			bufferedwritter.write(json);
 			bufferedwritter.newLine();
 
 		} catch (IOException ex) {
